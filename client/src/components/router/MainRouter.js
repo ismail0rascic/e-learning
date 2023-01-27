@@ -1,5 +1,6 @@
+/*eslint-disable*/
 import { connect } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getPost } from "../../actions/postActions";
 
@@ -22,16 +23,25 @@ import Home from "../home/Home";
 import SearchPosts from "../searchPosts/SearchPosts";
 import AdminPage from "../adminPage/AdminPage";
 import { getUser } from "../../actions/userActions";
+import { signOut } from "../../actions/authActions";
 
 const MainRouter = (props) => {
+  const navigate = useNavigate();
   useEffect(() => {
     getPost();
-    // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
-    props.auth.isAuthenticated && getUser(props.auth.user._id);
-    // eslint-disable-next-line
-  }, [props.auth.user._id]);
+    if (props.auth.loading && props.users.length > 0) {
+      const user = props.users.find((o) => o._id === props.auth.user._id);
+      if (user) props.auth.isAuthenticated && getUser(props.auth.user._id);
+      else {
+        signOut(navigate);
+      }
+    }
+  }, [props.auth.user._id, props.users.length]);
+
+ // console.log(props.authUser);
   return (
     <>
       {props.auth.loading && (

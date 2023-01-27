@@ -40,7 +40,9 @@ export const refreshAuth = () => {
       store.dispatch({
         type: REFRESHED,
       });
-    else store.dispatch(setCurrentUser(res.data.token));
+    else {
+      store.dispatch(setCurrentUser(res.data.token));
+    }
 
     clearError();
   });

@@ -12,7 +12,6 @@ import { refreshAuth } from "./actions/authActions";
 
 const App = () => {
   refreshAuth();
-
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
