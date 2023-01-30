@@ -1,12 +1,19 @@
 import { connect } from "react-redux";
+
 import { Grid } from "@material-ui/core";
 import Posts from "../posts/Posts";
 import SearchFilters from "../searchFilters/SearchFilters";
 import Enroll from "../enroll/Enroll";
-import useSearchPosts from "./useSearchPosts";
 
-const SearchPosts = ({ search, posts }) => {
-  const { filters, setFilters, filtered } = useSearchPosts(search, posts);
+import useSearchPosts from "./useSearchPosts";
+import { SEARCH } from "../../actions/types";
+
+const SearchPosts = ({ search, posts, searchTerm }) => {
+  const { filters, setFilters, filtered } = useSearchPosts(
+    search,
+    posts,
+    searchTerm
+  );
   return (
     <Grid container direction={"row"} spacing={3} style={{ padding: 10 }}>
       <Grid item xs={12} md={3} lg={3}>
@@ -27,5 +34,8 @@ const mapStateToProps = (state) => ({
   search: state.searchR,
   posts: state.postR,
 });
+const mapDispatchToProps = (dispatch) => ({
+  searchTerm: (data) => dispatch({ type: SEARCH, payload: data }),
+});
 
-export default connect(mapStateToProps)(SearchPosts);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPosts);

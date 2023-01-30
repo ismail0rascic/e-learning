@@ -3,11 +3,10 @@ import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 const MentorRoute = (props) => {
   const user = props.auth.isAuthenticated && props.authUser && props.authUser;
-
   return user && user.role !== "student" ? (
     props.children
   ) : (
-    <Navigate to={{ pathname: "/signin" }} />
+    <Navigate to={{ pathname: "/" }} />
   );
 };
 const mapStateToProps = (state) => ({

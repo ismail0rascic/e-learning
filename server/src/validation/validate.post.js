@@ -10,7 +10,7 @@ export default function validatePost(data) {
   data.duration = !isEmpty(data.duration) ? data.duration : "";
   data.image = !isEmpty(data.image) ? data.image : "";
 
-  const letterTest = /^[A-Za-z0-9]*$/;
+  const letterTest = /^[A-Za-z0-9\s]*$/;
   const lengthTest = /^.{1,100}$/;
 
   if (validator.isEmpty(data.title)) {

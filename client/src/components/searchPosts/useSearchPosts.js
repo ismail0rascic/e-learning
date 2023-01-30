@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-const useSearchPosts = (search, posts) => {
+const useSearchPosts = (search, posts, searchTerm) => {
   const [term, setTerm] = useState(search.term);
   const [filters, setFilters] = useState({
     level: [],
@@ -12,6 +12,12 @@ const useSearchPosts = (search, posts) => {
     setTerm(search.term);
     // eslint-disable-next-line
   }, [search.run]);
+
+  useEffect(() => {
+    return () => {
+      searchTerm("");
+    }; // eslint-disable-next-line
+  }, []);
 
   const searchedPosts =
     posts.length > 0 && term

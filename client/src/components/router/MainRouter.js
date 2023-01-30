@@ -32,23 +32,15 @@ const MainRouter = (props) => {
   }, []);
 
   useEffect(() => {
-    if (props.auth.loading && props.users.length > 0) {
-      const user = props.users.find((o) => o._id === props.auth.user._id);
-      if (user) props.auth.isAuthenticated && getUser(props.auth.user._id);
-      else {
-        signOut(navigate);
-      }
-    }
-  }, [props.auth.user._id, props.users.length]);
+    props.auth.isAuthenticated && getUser(props.auth.user._id);
+  }, [props.auth.user._id]);
 
- // console.log(props.authUser);
   return (
     <>
-      {props.auth.loading && (
+      {props.auth.loading  && (
         <Routes>
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
-
           <Route
             path="/"
             element={

@@ -8,9 +8,23 @@ import Dashboard from "../dashboard/Dashboard";
 import UsersFilters from "../usersFilters/UsersFilters";
 import Header from "../header/Header";
 import useUsers from "./useUsers";
+import { Pagination } from "@mui/material";
+import usePagination from "../../customHooks/usePagination";
+import { useState } from "react";
 
 const Users = (props) => {
-  const { data, filter, setFilter, navigate } = useUsers(props.users);
+  const [page, setPage] = useState(1);
+
+  const count = Math.ceil(props.users.length / 10);
+  const dataP = usePagination(props.users, 10);
+
+  const { data, filter, setFilter, navigate } = useUsers(dataP.currentData());
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    dataP.jump(p);
+  };
+
   const children = () => {
     return (
       <Grid container spacing={2}>
@@ -27,6 +41,21 @@ const Users = (props) => {
           <UsersFilters filter={filter} setFilter={setFilter} />
 
           {data && <Table data={data} />}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 30,
+            }}
+          >
+            <Pagination
+              count={count}
+              page={page}
+              onChange={handleChange}
+              color="primary"
+            />
+          </div>
         </Grid>
       </Grid>
     );

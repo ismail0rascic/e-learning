@@ -52,7 +52,6 @@ const signIn = (req, res) => {
   }
 
   User.findOne({ email: req.body.email }, (err, user) => {
-   
     if (err || !user) {
       return res.status(401).json({ signin: "Wrong credentials!" });
     }
@@ -97,9 +96,17 @@ const signOut = (req, res) => {
 export const authorization = (req, res, next) => {
   const token = req.cookies.token;
   if (token) {
-    res.json({
-      success: true,
-      token: jwt_decode(token),
+    let id = jwt_decode(token)._id;
+    User.findById(id).exec((err, data) => {
+      if (data) {
+        res.json({
+          success: true,
+          token: jwt_decode(token),
+        });
+      } else {
+        res.clearCookie("token");
+        res.status(200).json({ message: "User not exist." });
+      }
     });
   } else {
     res.status(200).json({ message: "User signed out." });

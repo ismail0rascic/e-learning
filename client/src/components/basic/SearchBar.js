@@ -5,7 +5,7 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { RUN_SEARCH, SEARCH } from "../../actions/types";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
@@ -21,16 +21,6 @@ const Search = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: "30%",
   },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -50,7 +40,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar(props) {
-  const location = useLocation().pathname;
   const navigate = useNavigate();
 
   const onChange = (e) => {
@@ -68,16 +57,27 @@ function SearchBar(props) {
       </IconButton>
 
       <StyledInputBase
-       placeholder="Search…"
+        placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
         onChange={(e) => onChange(e)}
+        value={props.search.term}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            navigate("/search/posts");
+            props.searchRun();
+          }
+        }}
       />
     </Search>
   );
 }
 
+const mapStateToProps = (state) => ({
+  search: state.searchR,
+});
 const mapDispatchToProps = (dispatch) => ({
   searchTerm: (data) => dispatch({ type: SEARCH, payload: data }),
   searchRun: () => dispatch({ type: RUN_SEARCH }),
 });
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

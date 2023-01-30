@@ -1,8 +1,9 @@
-import { Grid, Paper } from "@mui/material";
+import { Avatar, Grid, Paper } from "@mui/material";
 import useStyles from "../../styles/style";
 
 const Table = ({ data }) => {
   const classes = useStyles();
+
   return (
     <Paper
       className={classes.root}
@@ -23,7 +24,13 @@ const Table = ({ data }) => {
                 {_.elements.map((element, i) => {
                   return (
                     <Grid item className={classes.tableC} key={_.id + i + j}>
-                      {element}
+                      {_.title !== "Image" ? (
+                        element
+                      ) : (
+                        <Avatar
+                          src={element && require(`../../images/${element}`)}
+                        />
+                      )}
                     </Grid>
                   );
                 })}

@@ -18,15 +18,16 @@ export const generatePaths = (navigate, deleteUserAdmin) => {
   ];
 };
 export const generateTableData = (users, paths, returnPath) => {
-  let arr = ["FirstName", "LastName", "Role", "Email",""];
+  let arr = ["Image", "FirstName", "LastName", "Role", "Email", ""];
   let usersArr = [];
   users.map((user) => {
     usersArr.push([
       user._id,
+      user.image,
       user.firstName,
       user.lastName,
       user.email,
-      user.role,
+      user.active ? "\u2611  " + user.role : user.role,
     ]);
   });
   let table = [];

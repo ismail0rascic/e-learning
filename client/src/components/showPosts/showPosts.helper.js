@@ -18,11 +18,20 @@ export const generatePaths = (navigate, deletePost) => {
   ];
 };
 export const generateTableData = (posts, paths, returnPath, users) => {
-  let arr = ["Title", "Mentor", "Description", "Level", "Duration", ""];
+  let arr = [
+    "Image",
+    "Title",
+    "Mentor",
+    "Description",
+    "Level",
+    "Duration",
+    "",
+  ];
   let postsArr = [];
   posts.map((post) => {
     postsArr.push([
       post._id,
+      post.image,
       post.title,
       users.length > 0 &&
       posts.length > 0 &&
