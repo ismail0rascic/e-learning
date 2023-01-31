@@ -1,16 +1,20 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
+import { useEffect } from "react";
 const AdminRoute = (props) => {
-  const user = props.auth.isAuthenticated && props.authUser && props.authUser;
-
-  return user && user.role === "admin"
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!props.auth.isAuthenticated) return navigate("/");
+  });
+  return props.authUser.role === "admin"
     ? props.children
-    : user && <Navigate to={{ pathname: "/" }} />;
+    : props.authUser && <Navigate to={{ pathname: "/" }} />;
 };
 const mapStateToProps = (state) => ({
   auth: state.authR,
   users: state.userR,
   authUser: state.authUserR,
 });
+
 export default connect(mapStateToProps)(AdminRoute);

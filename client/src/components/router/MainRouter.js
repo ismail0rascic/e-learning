@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import { connect } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getPost } from "../../actions/postActions";
 
@@ -23,10 +23,8 @@ import Home from "../home/Home";
 import SearchPosts from "../searchPosts/SearchPosts";
 import AdminPage from "../adminPage/AdminPage";
 import { getUser } from "../../actions/userActions";
-import { signOut } from "../../actions/authActions";
 
 const MainRouter = (props) => {
-  const navigate = useNavigate();
   useEffect(() => {
     getPost();
   }, []);
@@ -34,10 +32,9 @@ const MainRouter = (props) => {
   useEffect(() => {
     props.auth.isAuthenticated && getUser(props.auth.user._id);
   }, [props.auth.user._id]);
-
   return (
     <>
-      {props.auth.loading  && (
+      {props.auth.loading && (
         <Routes>
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
@@ -121,6 +118,7 @@ const MainRouter = (props) => {
               </MentorRoute>
             }
           />
+
           <Route
             path="/admin"
             element={
@@ -129,46 +127,57 @@ const MainRouter = (props) => {
               </AdminRoute>
             }
           />
-          <Route
-            path="/posts"
-            element={
-              <AdminRoute>
-                <ShowPosts />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/users"
-            element={
-              <AdminRoute>
-                <Users />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/new/user"
-            element={
-              <AdminRoute>
-                <Signup />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/user/edit/:id"
-            element={
-              <AdminRoute>
-                <UpdateProfile />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/user/password/:id"
-            element={
-              <AdminRoute>
-                <SetPassword />
-              </AdminRoute>
-            }
-          />
+
+          {
+            <Route
+              path="/posts"
+              element={
+                <AdminRoute>
+                  <ShowPosts />
+                </AdminRoute>
+              }
+            />
+          }
+          {
+            <Route
+              path="/users"
+              element={
+                <AdminRoute>
+                  <Users />
+                </AdminRoute>
+              }
+            />
+          }
+          {
+            <Route
+              path="/new/user"
+              element={
+                <AdminRoute>
+                  <Signup />
+                </AdminRoute>
+              }
+            />
+          }
+          {
+            <Route
+              path="/user/edit/:id"
+              element={
+                <AdminRoute>
+                  <UpdateProfile />
+                </AdminRoute>
+              }
+            />
+          }
+          {
+            <Route
+              path="/user/password/:id"
+              element={
+                <AdminRoute>
+                  <SetPassword />
+                </AdminRoute>
+              }
+            />
+          }
         </Routes>
       )}
     </>

@@ -5,10 +5,12 @@ import Header from "../header/Header";
 import Posts from "../posts/Posts";
 
 const MentorPage = ({ authUser }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     authUser.role !== "mentor" && navigate("/");
   });
-  const navigate = useNavigate();
+
   return (
     <>
       <Header

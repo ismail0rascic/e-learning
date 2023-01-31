@@ -2,7 +2,7 @@ import axios from "axios";
 import store from "../store";
 
 import { getError, clearError } from "./errorActions";
-import { REFRESHED } from "./types";
+import { GET_AUTH_USER, REFRESHED } from "./types";
 import { getUser, setCurrentUser } from "./userActions";
 
 export const signUp = (userData, navigate, link) => {
@@ -30,7 +30,11 @@ export const signIn = (userData) => {
 export const signOut = (navigate) => {
   axios.post("/auth/signout").then(() => {
     store.dispatch(setCurrentUser({}));
-    navigate("/posts");
+    store.dispatch({
+      type: GET_AUTH_USER,
+      payload: [false],
+    });
+    navigate("/");
   });
 };
 

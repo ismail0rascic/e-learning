@@ -7,6 +7,9 @@ const Complete = ({ data, disabled }) => {
     <>
       <Autocomplete
         disabled={disabled}
+        onKeyDown={(e) => {
+          e.preventDefault();
+        }}
         className={data.class}
         options={data.data}
         isOptionEqualToValue={(option, value) => option.value === value.value}
@@ -14,7 +17,15 @@ const Complete = ({ data, disabled }) => {
         onInputChange={(event, newInputValue) => {
           data.changeState(newInputValue);
         }}
-        renderInput={(params) => <TextField label={data.title} {...params} />}
+        renderInput={(params) => (
+          <TextField
+            label={data.title}
+            {...params}
+            onKeyDown={(e) => {
+              e.preventDefault();
+            }}
+          />
+        )}
       />
       {data.error && (
         <Typography component="p" color="error">
