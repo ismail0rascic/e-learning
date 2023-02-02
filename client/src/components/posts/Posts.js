@@ -20,7 +20,7 @@ const Posts = ({ posts, searchedPosts, auth }) => {
     : location.includes("mentor")
     ? posts
         .map((post) => post.userId === auth.user._id && post)
-        .filter((p) => p)
+        .filter((post) => post.deleted === false)
     : posts;
 
   const count = Math.ceil(elements.length / 4);
@@ -41,7 +41,7 @@ const Posts = ({ posts, searchedPosts, auth }) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginBottom:30
+            marginBottom: 30,
           }}
         >
           <Pagination

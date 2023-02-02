@@ -28,16 +28,28 @@ export const deleteUserAdmin = async (id) => {
   await deleteOne("api/users/", id, getAllUsers);
 };
 
-export const addCourse = (userData) => {
+export const addCourse = (userData, authUser) => {
   axios
     .put(baseUrl + "api/course", userData)
     .then((res) => {
-      getUser(userData.userId);
+      authUser.role !== "admin" && getUser(userData.userId);
     })
     .catch((err) => {
       getError(err);
     });
 };
+
+export const removeCourse = (userData, authUser) => {
+  axios
+    .put(baseUrl + "api/remove", userData)
+    .then((res) => {
+      authUser.role !== "admin" && getUser(userData.userId);
+    })
+    .catch((err) => {
+      getError(err);
+    });
+};
+
 export const addComplete = (userData) => {
   axios
     .put(baseUrl + "api/completed", userData)

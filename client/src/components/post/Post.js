@@ -41,12 +41,20 @@ const Post = ({ post, users, authUser }) => {
           </Typography>
           {location.includes("student") ? (
             <>
-              <Typography>
-                {users.find((o) => (o._id = post.userId))
-                  ? users.find((o) => (o._id = post.userId)).firstName
-                  : ""}
-              </Typography>
+              <Typography>{post.mentor}</Typography>
               <BoxChecker data={check} />
+              {post.deleted && (
+                <Typography
+                  variant="h6"
+                  style={{
+                    marginBottom: 10,
+                    color: "red",
+                    textAlign: "center",
+                  }}
+                >
+                  This course is deleted
+                </Typography>
+              )}
             </>
           ) : (
             <>

@@ -7,12 +7,9 @@ import("./config/passport.js");
 
 import auth from "./routes/auth.router.js";
 import user from "./routes/user.router.js";
-import comment from "./routes/comment.router.js";
 import post from "./routes/post.router.js";
 import upload from "./routes/upload.router.js";
 import password from "./routes/password.router.js";
-
-
 
 import cors from "cors";
 import { seedAdmins } from "./seed/seed.admin.js";
@@ -30,12 +27,9 @@ app.use(cookies());
 app.use(bodyParser.json());
 app.use("/", auth);
 app.use("/", user);
-app.use("/", comment);
 app.use("/", post);
 app.use("/", upload);
 app.use("/", password);
-
-
 
 seedAdmins();
 export default app;

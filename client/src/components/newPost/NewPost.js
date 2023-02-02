@@ -35,12 +35,11 @@ const NewPost = (props) => {
     setOpen,
     completes,
     post,
-  } = useNewPost(classes, props.posts, props.authUser);
+  } = useNewPost(classes, props.posts, props.authUser, props.users);
   useError(setValues, values, props.errors);
   const dialog = returnDialogData();
   return (
     <>
-      (
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h5">
@@ -56,10 +55,12 @@ const NewPost = (props) => {
               />
               <TextArea data={areas} values={values} setValues={setValues} />
               <Complete data={completes[0]} />
+              {props.authUser.role === "admin" && (
+                <Complete data={completes[1]} />
+              )}
             </Grid>
-
             <Grid item xs={6} md={6} lg={6}>
-              <Complete data={completes[1]} />
+              <Complete data={completes[2]} />
               <UploadImage
                 image={""}
                 values={values}
@@ -68,6 +69,15 @@ const NewPost = (props) => {
               />
             </Grid>
           </Grid>
+          {props.authUser.role === "admin" &&
+            props.users
+              .map((user) => user.role === "mentor" && user.firstName)
+              .filter((user) => user).length === 0 && (
+              <Typography component="p" color="error">
+                Now is not possible to add course because any mentor not exist
+              </Typography>
+            )}
+
           {values.errors.add && (
             <Typography component="p" color="error">
               {values.errors.add}
@@ -88,7 +98,6 @@ const NewPost = (props) => {
           />
         )}
       </Card>
-      )
     </>
   );
 };
@@ -96,6 +105,7 @@ const NewPost = (props) => {
 const mapStateToProps = (state) => ({
   errors: state.errorR,
   posts: state.postR,
+  users: state.userR,
   authUser: state.authUserR,
 });
 export default connect(mapStateToProps)(NewPost);

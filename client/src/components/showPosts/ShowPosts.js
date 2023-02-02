@@ -15,7 +15,10 @@ const ShowPosts = (props) => {
   const [page, setPage] = useState(1);
 
   const count = Math.ceil(props.posts.length / 10);
-  const dataP = usePagination(props.posts, 10);
+  const dataP = usePagination(
+    props.posts.filter((post) => post.deleted === false),
+    10
+  );
 
   const handleChange = (e, p) => {
     setPage(p);

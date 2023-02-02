@@ -9,6 +9,7 @@ export default function validatePost(data) {
   data.level = !isEmpty(data.level) ? data.level : "";
   data.duration = !isEmpty(data.duration) ? data.duration : "";
   data.image = !isEmpty(data.image) ? data.image : "";
+  data.userId = !isEmpty(data.userId) ? data.userId : "";
 
   const letterTest = /^[A-Za-z0-9\s]*$/;
   const lengthTest = /^.{1,100}$/;
@@ -31,6 +32,9 @@ export default function validatePost(data) {
     errors.add = "The post is missing required information";
   }
   if (validator.isEmpty(data.image)) {
+    errors.add = "The post is missing required information";
+  }
+  if (validator.isEmpty(data.userId)) {
     errors.add = "The post is missing required information";
   }
 

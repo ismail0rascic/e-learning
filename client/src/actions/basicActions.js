@@ -49,7 +49,7 @@ export const addOne = async (url, userData, func) => {
   axios
     .post(baseUrl + url, userData)
     .then((res) => {
-      func();
+      func(res.data);
     })
     .catch((err) => {
       getError(err);
@@ -60,10 +60,9 @@ export const updateOne = async (url, userData, func) => {
   axios
     .put(baseUrl + url + userData.id, userData)
     .then((res) => {
-      func && func();
+      func && func(res.data);
     })
     .catch((err) => {
-      console.log(err);
       getError(err);
     });
 };
@@ -72,7 +71,7 @@ export const deleteOne = async (url, id, func) => {
   axios
     .delete(baseUrl + url + id)
     .then((res) => {
-      func && func();
+      func && func(res.data);
     })
     .catch((err) => {
       getError(err);

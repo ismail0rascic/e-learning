@@ -19,5 +19,12 @@ const PostSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
+  mentor: {
+    type: String,
+  },
 });
 export default mongoose.model("Post", PostSchema);

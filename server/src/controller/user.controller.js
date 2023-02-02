@@ -82,6 +82,19 @@ export const addCourse = async (req, res) => {
   }
 };
 
+export const removeCourse = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.body.userId, {
+      $pull: { courses: req.body.postId },
+    });
+    res.status(200);
+  } catch (err) {
+    return res.status(400).json({
+      error: "remove request",
+    });
+  }
+};
+
 export const addCompleted = async (req, res) => {
   try {
     let result = await User.findByIdAndUpdate(

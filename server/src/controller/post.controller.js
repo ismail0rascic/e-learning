@@ -21,7 +21,8 @@ export const addPost = (req, res) => {
     description: req.body.description,
     level: req.body.level,
     duration: req.body.duration,
-    image: req.body.image ,
+    image: req.body.image,
+    mentor: req.body.mentor,
   });
 
   newPost
@@ -54,11 +55,12 @@ export const deletePost = (req, res) => {
     if (err || !data) {
       return res.status(400).json("Item not found");
     }
-    data.remove((err, data) => {
-      if (err || !data) {
-        return res.status(404).json(err.message);
+    const Post = _.extend(data, req.body);
+    Post.save((err, data) => {
+      if (err) {
+        return res.status(400).json(err.message);
       }
-      res.status(200).json("Item deleted.");
+      res.status(200).json(data);
     });
   });
 };

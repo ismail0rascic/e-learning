@@ -11,7 +11,7 @@ import { SEARCH } from "../../actions/types";
 const SearchPosts = ({ search, posts, searchTerm }) => {
   const { filters, setFilters, filtered } = useSearchPosts(
     search,
-    posts,
+    posts.filter((post) => post.deleted === false),
     searchTerm
   );
   return (

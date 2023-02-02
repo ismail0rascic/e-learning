@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import { updateOne } from "./basicActions";
 
 export const changePassword = async (userData, navigate, link) => {

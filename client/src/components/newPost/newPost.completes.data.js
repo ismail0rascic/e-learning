@@ -1,4 +1,4 @@
-export const newPostCompletes = (setValues, values, post, classes) => {
+export const newPostCompletes = (setValues, values, post, classes, users) => {
   const completes = [
     {
       title: "Level",
@@ -8,6 +8,23 @@ export const newPostCompletes = (setValues, values, post, classes) => {
       error: values.errors.level,
       changeState: (_) => {
         setValues({ ...values, level: _ });
+      },
+    },
+    {
+      title: "Mentor",
+      data: users
+        .map((user) => user.role === "mentor" && user.firstName)
+        .filter((user) => user),
+      value:
+        values.mentor !== false
+          ? values.mentor
+          : post
+          ? users.find((user) => user._id === post.userId).firstName
+          : "",
+      class: classes.textField,
+      error: values.errors.duration,
+      changeState: (_) => {
+        setValues({ ...values, mentor: _ });
       },
     },
     {

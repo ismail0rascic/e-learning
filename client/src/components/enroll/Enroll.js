@@ -28,12 +28,15 @@ const Enroll = ({ children, post, authUser }) => {
                 disabled={(authUser && authUser.role !== "student") || enrolled}
                 color="primary"
                 style={{ width: "100%" }}
-                onClick={() =>
-                  addCourse({
-                    userId: authUser && authUser._id,
-                    postId: post && post._id,
-                  })
-                }
+                onClick={() => {
+                  addCourse(
+                    {
+                      userId: authUser && authUser._id,
+                      postId: post && post._id,
+                    },
+                    authUser
+                  );
+                }}
               >
                 {enrolled ? "Enrolled" : "Enroll"}
               </Button>

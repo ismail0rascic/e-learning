@@ -15,7 +15,7 @@ const MentorPage = ({ authUser }) => {
     <>
       <Header
         data={{
-          title: "Courses/Projects",
+          title: "Courses/Projects    " + authUser.courses.length,
           func: () => {
             navigate("/new/post");
           },

@@ -8,7 +8,7 @@ import { newPostsButtons, dialogButtons } from "./newPost.buttons.data";
 
 import { addPost, updatePost } from "../../actions/postActions";
 
-const useNewPost = (classes, posts, authUser) => {
+const useNewPost = (classes, posts, authUser, users) => {
   const location = useLocation().pathname;
   const id = useParams().id;
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const useNewPost = (classes, posts, authUser) => {
     level: id ? false : "",
     duration: id ? false : "",
     image: id ? false : "",
+    mentor: id ? false : "",
     errors: {},
   });
   const [open, setOpen] = useState(false);
@@ -26,7 +27,15 @@ const useNewPost = (classes, posts, authUser) => {
 
   const clickSave = (e) => {
     const newPost = {
-      userId: location.includes("edit") ? post.userId : authUser._id,
+      userId: location.includes("edit")
+        ? values.mentor
+          ? users.find((user) => user.firstName === values.mentor)._id
+          : post.userId
+        : authUser.role === "admin" && values.mentor
+        ? users.find((user) => user.firstName === values.mentor)._id
+        : authUser.role === "admin"
+        ? ""
+        : authUser._id,
       id: id && id,
       title: values.title === false ? post.title : values.title,
       description:
@@ -34,11 +43,25 @@ const useNewPost = (classes, posts, authUser) => {
       level: values.level === false ? post.level : values.level,
       duration: values.duration === false ? post.duration : values.duration,
       image: values.image === false ? post.image : values.image,
+      mentor: values.mentor === false ? post.mentor : values.mentor,
     };
 
     if (post)
-      updatePost(newPost, navigate, authUser.role === "admin" ? "/posts" : "/");
-    else addPost(newPost, navigate, authUser.role === "admin" ? "/posts" : "/");
+      updatePost(
+        newPost,
+        navigate,
+        authUser.role === "admin" ? "/posts" : "/",
+        users,
+        authUser,
+        post
+      );
+    else
+      addPost(
+        newPost,
+        navigate,
+        authUser.role === "admin" ? "/posts" : "/",
+        authUser
+      );
   };
 
   const clickClose = () => {
@@ -55,7 +78,7 @@ const useNewPost = (classes, posts, authUser) => {
   const areas = values && newPostAreas(values, setValues, classes, post);
   const buttons = newPostsButtons(clickSave, clickClose, classes, post);
   const dButtons = dialogButtons(clickYes, clickNo, classes);
-  const completes = newPostCompletes(setValues, values, post, classes);
+  const completes = newPostCompletes(setValues, values, post, classes, users);
 
   return {
     values,
