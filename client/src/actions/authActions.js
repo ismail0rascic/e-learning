@@ -18,7 +18,7 @@ export const signUp = (userData, navigate, link) => {
 
 export const signIn = (userData) => {
   axios
-    .post(baseUrl + "auth/signin", userData)
+    .post("/auth/signin", userData)
     .then((res) => {
       console.log(res);
       store.dispatch(setCurrentUser(res.data.token));
@@ -31,7 +31,7 @@ export const signIn = (userData) => {
 };
 
 export const signOut = (navigate) => {
-  axios.post(baseUrl + "/auth/signout").then(() => {
+  axios.post("/auth/signout").then(() => {
     store.dispatch(setCurrentUser({}));
     store.dispatch({
       type: GET_AUTH_USER,
@@ -42,7 +42,7 @@ export const signOut = (navigate) => {
 };
 
 export const refreshAuth = () => {
-  axios.get(baseUrl + "/auth/refresh").then((res) => {
+  axios.get("/auth/refresh").then((res) => {
     if (res.data.message)
       store.dispatch({
         type: REFRESHED,
