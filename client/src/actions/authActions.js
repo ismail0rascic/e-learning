@@ -20,7 +20,7 @@ export const signIn = (userData) => {
   axios
     .post(baseUrl + "auth/signin", userData)
     .then((res) => {
-      console.log(res.data.token);
+      console.log(res);
       store.dispatch(setCurrentUser(res.data.token));
       getUser(res.data.token._id);
       clearError();
