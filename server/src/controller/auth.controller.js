@@ -75,7 +75,7 @@ const signIn = (req, res) => {
           },
           (err, token) => {
             res.cookie("token", token, { httpOnly: true });
-            res.json({
+            res.status(200).json({
               success: true,
               token: jwt_decode(token),
             });
