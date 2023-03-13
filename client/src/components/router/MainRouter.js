@@ -31,7 +31,8 @@ const MainRouter = (props) => {
 
   useEffect(() => {
     props.auth.isAuthenticated && getUser(props.auth.user._id);
-  }, [props.auth.user._id]);
+  }, [props.auth.user]);
+  
   return (
     <>
       {props.auth.loading && (

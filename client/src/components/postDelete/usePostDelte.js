@@ -20,6 +20,7 @@ const usePostDelete = (posts) => {
 
   useEffect(() => {
     !open && navigate("/posts");
+    // eslint-disable-next-line
   }, [open]);
   const dialogCancel = () => {
     setOpen(false);

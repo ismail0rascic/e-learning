@@ -10,6 +10,9 @@ import user from "./routes/user.router.js";
 import post from "./routes/post.router.js";
 import upload from "./routes/upload.router.js";
 import password from "./routes/password.router.js";
+import {createProxyMiddleware} from "http-proxy-middleware"
+
+
 
 import cors from "cors";
 import { seedAdmins } from "./seed/seed.admin.js";
@@ -30,6 +33,14 @@ app.use("/", user);
 app.use("/", post);
 app.use("/", upload);
 app.use("/", password);
+
+const backendProxy = createProxyMiddleware({
+  target: 'https://e-learning-978v.onrender.com',
+  changeOrigin: true, 
+});
+
+
+app.use('/', backendProxy);
 
 seedAdmins();
 export default app;

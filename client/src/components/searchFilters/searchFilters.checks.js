@@ -8,6 +8,7 @@ export const searchFiltersDuration = (filters, setFilter) => {
     "5-15 Days",
   ];
   let checks = [];
+  // eslint-disable-next-line
   durations.map((duration) => {
     checks.push({
       label: duration,
@@ -30,7 +31,7 @@ export const searchFiltersDuration = (filters, setFilter) => {
 export const searchFiltersLevel = (filters, setFilter) => {
   let levels = ["beginner", "intermediate", "advanced", "all"];
   let checks = [];
-
+  // eslint-disable-next-line
   levels.map((level) => {
     checks.push({
       label: level,

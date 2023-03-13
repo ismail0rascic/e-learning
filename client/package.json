@@ -21,6 +21,7 @@
     "classnames": "^2.3.2",
     "countries-list": "^2.6.1",
     "dayjs": "^1.11.7",
+    "dotnet": "^1.1.4",
     "is-empty": "^1.2.0",
     "jwt-decode": "^3.1.2",
     "list-of-cars": "^0.0.142",
@@ -41,11 +42,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-all-interfaces": "HOST=0.0.0.0 react-scripts start"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://e-learning-978v.onrender.com",
   "eslintConfig": {
     "extends": [
       "react-app",
