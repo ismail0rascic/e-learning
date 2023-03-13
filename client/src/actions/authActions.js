@@ -5,9 +5,11 @@ import { getError, clearError } from "./errorActions";
 import { GET_AUTH_USER, REFRESHED } from "./types";
 import { getUser, setCurrentUser } from "./userActions";
 
+import { baseUrl } from "../config";
+
 export const signUp = (userData, navigate, link) => {
   axios
-    .post("/auth/signup", userData)
+    .post(baseUrl + "auth/signup", userData)
     .then((res) => {
       navigate(link);
     })
@@ -18,9 +20,6 @@ export const signIn = (userData) => {
   axios
     .post("auth/signin", userData)
     .then((res) => {
-    console.log(res.data.token)
-    console.log(res.data)
-    
       store.dispatch(setCurrentUser(res.data.token));
       getUser(res.data.token._id);
       clearError();
@@ -31,7 +30,7 @@ export const signIn = (userData) => {
 };
 
 export const signOut = (navigate) => {
-  axios.post("/auth/signout").then(() => {
+  axios.post("auth/signout").then(() => {
     store.dispatch(setCurrentUser({}));
     store.dispatch({
       type: GET_AUTH_USER,
@@ -42,7 +41,7 @@ export const signOut = (navigate) => {
 };
 
 export const refreshAuth = () => {
-  axios.get("/auth/refresh").then((res) => {
+  axios.get("auth/refresh").then((res) => {
     if (res.data.message)
       store.dispatch({
         type: REFRESHED,
