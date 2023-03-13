@@ -12,7 +12,7 @@ import upload from "./routes/upload.router.js";
 import password from "./routes/password.router.js";
 import {createProxyMiddleware} from "http-proxy-middleware"
 import cookieParser from "cookie-parser";
-
+import { corsOptions } from "./config/corsOptions.js";
 
 import cors from "cors";
 import { seedAdmins } from "./seed/seed.admin.js";
@@ -23,7 +23,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(passport.initialize());
 app.use(cookies());
 app.use(cookieParser())
