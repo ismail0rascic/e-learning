@@ -1,13 +1,11 @@
 import createProxyMiddleware from "http-proxy-middleware";
 
-/*module.exports = function (app) {
+module.exports = function (app) {
   app.use(
-    "/",
+    "/api",
     createProxyMiddleware({
       target: "https://e-learning-978v.onrender.com",
       changeOrigin: true,
-      secure: false,
     })
   );
 };
-*/
