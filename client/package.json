@@ -48,6 +48,7 @@
     "eject": "react-scripts eject",
     "start-all-interfaces": "HOST=0.0.0.0 react-scripts start"
   },
+  "proxy": "https://e-learning-978v.onrender.com",
   "eslintConfig": {
     "extends": [
       "react-app",
