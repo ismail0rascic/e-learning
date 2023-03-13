@@ -81,7 +81,6 @@ const signIn = (req, res) => {
             });
           }
         );
-        console.log(jwt_decode(token));
       } else {
         return res.status(401).json({ signin: "Wrong credentials!" });
       }
