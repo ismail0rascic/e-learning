@@ -11,7 +11,7 @@ import post from "./routes/post.router.js";
 import upload from "./routes/upload.router.js";
 import password from "./routes/password.router.js";
 import {createProxyMiddleware} from "http-proxy-middleware"
-
+import cookieParser from "cookie-parser";
 
 
 import cors from "cors";
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(cors());
 app.use(passport.initialize());
 app.use(cookies());
-
+app.use(cookieParser())
 app.use(bodyParser.json());
 app.use("/", auth);
 app.use("/", user);

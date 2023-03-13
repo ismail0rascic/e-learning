@@ -18,8 +18,9 @@ export const signUp = (userData, navigate, link) => {
 
 export const signIn = (userData) => {
   axios
-    .post("auth/signin", userData)
+    .post("/auth/signin", userData)
     .then((res) => {
+      console.log(res.data.token);
       store.dispatch(setCurrentUser(res.data.token));
       getUser(res.data.token._id);
       clearError();
@@ -30,7 +31,7 @@ export const signIn = (userData) => {
 };
 
 export const signOut = (navigate) => {
-  axios.post("auth/signout").then(() => {
+  axios.post("/auth/signout").then(() => {
     store.dispatch(setCurrentUser({}));
     store.dispatch({
       type: GET_AUTH_USER,
@@ -41,7 +42,7 @@ export const signOut = (navigate) => {
 };
 
 export const refreshAuth = () => {
-  axios.get("auth/refresh").then((res) => {
+  axios.get("/auth/refresh").then((res) => {
     if (res.data.message)
       store.dispatch({
         type: REFRESHED,
