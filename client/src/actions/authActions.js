@@ -18,7 +18,7 @@ export const signUp = (userData, navigate, link) => {
 
 export const signIn = (userData) => {
   axios
-    .post("/auth/signin", userData)
+    .post("/auth/signin", userData, { withCredentials: true })
     .then((res) => {
       console.log(res);
       store.dispatch(setCurrentUser(res.data.token));
