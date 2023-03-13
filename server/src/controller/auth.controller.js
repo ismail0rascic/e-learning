@@ -9,7 +9,6 @@ import validateSignUp from "../validation/signup.validation.js";
 import validateSignIn from "../validation/signin.validation.js";
 
 export const signUp = (req, res) => {
-  console.log(req.body)
   const { errors, isValid } = validateSignUp(req.body);
 
   if (!isValid) {
@@ -47,7 +46,6 @@ export const signUp = (req, res) => {
 };
 
 const signIn = (req, res) => {
-  console.log(req.body)
   const { errors, isValid } = validateSignIn(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -83,6 +81,7 @@ const signIn = (req, res) => {
             });
           }
         );
+        console.log(jwt_decode(token));
       } else {
         return res.status(401).json({ signin: "Wrong credentials!" });
       }
